@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <title>ToDo App</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100"
+      rel="stylesheet"
+    />
+    <link href="/TODO.css" rel="stylesheet" />
+    <style>
+      span.false {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+      }
+      span.true {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        text-decoration: line-through;
+        margin-left: 40px;
+      }
+      button.true{
+        background-color:dodgerblue;
+      }
+      #all[filtert*=all]{
+        background-color:dodgerblue;
+      }
+      #active[filtert*=active]{
+        background-color:dodgerblue;
+      }
+      #comp[filtert*=comp]{
+        background-color:dodgerblue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 style="font-family: Arial, Helvetica, sans-serif;">
+        TODO
+      </h1>
+
+      <form action="/addtask?f=<%= filterType %>" method="POST">
+        <input
+          type="text"
+          id="text"
+          name="caption"
+          placeholder="What needs to be done?"
+        />
+      </form>
+      <ul id="list">
+        <% for( var i = 0; i < task.length; i++){ %>
+        <li>
+          <a href="/comptask?id=<%= task[i]._id %>&f=<%= filterType %>"><button
+            name="check"
+            class="<%= task[i].isComplete %>"
+            style="height: 15px;width:10px;border: 1px solid lightgrey; border-radius:5px"
+          >
+          </button>
+          </a>
+          <span class="<%= task[i].isComplete %>"><%= task[i].caption %></span
+          >
+          <a href="/removetask?id=<%= task[i]._id %>&f=<%= filterType %>"><button
+            class="del"
+            id="del"
+          >
+            x
+          </button>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+      <center>
+        <a href="/?f=all">
+        <button
+          id="all"
+          class="del"
+          filtert="<%= filterType %>"
+          style=" margin-right: 10px; float: none;"
+        >
+          All</button
+        >
+        </a>
+        <a href="/?f=active">
+        <button
+          id="active"
+          class="del"
+          filtert="<%= filterType %>"
+          style=" float: none;"
+        >
+          active</button
+        >
+      </a>
+      <a href="/?f=comp">
+      <button
+          id="comp"
+          class="del"
+          filtert="<%= filterType %>"
+          style="
+            margin-left: 10px;
+            float: none;
+          "
+        >
+          completed
+        </button>
+        </a>
+      </center>
+    </div>
+  </body>
+</html>
